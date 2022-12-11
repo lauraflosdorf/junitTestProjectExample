@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 class CalendarTest {
 	
+	//Exercise 1
 
 	@ParameterizedTest
 	@ValueSource(ints = {1904, 1923, 1955, 1998, 1972})
@@ -23,14 +24,15 @@ class CalendarTest {
 		assertEquals (expectedResult, actualResult);
 	}
 
-	//Equivalence Classes Tests:
+	//Exercise 2: Equivalence Classes Tests:
 	
 	// 1. Year is > 1900 and <=2000
 
 	// 1.1 Year is not divisible by 4 (year % 4 == 0) --> expected: not a leap year)
-	@Test
-	public void Should_check_if_year_is_not_leap_if_not_divisible_by_4_and_in_20th_century() {
-		Calendar calendar = new Calendar(1989);
+	@ParameterizedTest
+	@ValueSource(ints = {1911, 1943, 1989})
+	public void Should_check_if_year_is_not_leap_if_not_divisible_by_4_and_in_20th_century(int year) {
+		Calendar calendar = new Calendar(year);
 		
 		//expected Output is not leap year --> assertFalse
 		assertFalse (calendar.isLeapYear());
@@ -38,9 +40,10 @@ class CalendarTest {
 	
 	
 	// 1.2 Year is divisible by 4, but not by 100 (year % 4 == 0 && year % 100 != 0) --> expected: leap year
-	@Test
-	public void Should_check_if_year_is_leap_if_divisible_by_4_but_not_by_100_and_in_20th_century() {
-		Calendar calendar = new Calendar(1904);
+	@ParameterizedTest
+	@ValueSource(ints = {1904, 1920, 1968})
+	public void Should_check_if_year_is_leap_if_divisible_by_4_but_not_by_100_and_in_20th_century(int year) {
+		Calendar calendar = new Calendar(year);
 		
 		//expected Output is leap year --> assertTrue
 		assertTrue (calendar.isLeapYear());
@@ -59,7 +62,7 @@ class CalendarTest {
 	
 	// 2. Year is <= 1900 --> expected: false (unaccebtable value)
 	@ParameterizedTest
-	@ValueSource(ints = {1900, 1855})
+	@ValueSource(ints = {1900, 1855, 1820})
 	public void Should_check_if_return_false_if_year_is_not_in_20th_century_and_is_not_a_leap_year(int year) {
 		Calendar calendar = new Calendar(year);
 		
@@ -68,9 +71,10 @@ class CalendarTest {
 	}
 	
 	// 3. Year is > 2000 --> expected: false (unaccebtable value)
-		@Test
-	public void Should_check_if_return_false_if_year_is_not_in_20th_century_but_is_a_leap_year() {
-			Calendar calendar = new Calendar(2055);
+	@ParameterizedTest
+	@ValueSource(ints = {2001, 2055, 2020})
+	public void Should_check_if_return_false_if_year_is_not_in_20th_century_but_is_a_leap_year(int year) {
+			Calendar calendar = new Calendar(year);
 			
 			//expected Output is not leap year --> assertFalse
 			assertFalse (calendar.isLeapYear());
